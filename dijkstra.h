@@ -10,10 +10,10 @@
 
 class dijkstra {
 
-    dijkstra(int capacity = 65);
+    dijkstra();
     ~dijkstra();
     void shortest_path(vector<node> graph, node* v);
-    double dijkstra::distance(node *start, node *end);
+    double distance(node *start, node *end);
 
 private:
     map<node*,double> dist;
@@ -21,13 +21,13 @@ private:
     vector<node*> graph;
     node* source;
     int capacity;
-    PQArray pq;
+    PQArray<node*> pq;
     node u;
 };
 
-dijkstra::dijkstra(int capacity = 65){
+dijkstra::dijkstra(){
 
-    this->capacity = capacity;
+//    this->capacity = capacity;
 }
 dijkstra::~dijkstra(){
 
@@ -49,7 +49,7 @@ void dijkstra::shortest_path(vector<node> graph, node* v){
     double temp = 0, alternate_path;
 
     if (!v){
-        for (auto p: graph){
+        for (auto &p: graph){
             if (p.name != source.name){
                 temp = distance(v,&p);
                 dist[p] = -1;
@@ -77,11 +77,10 @@ void dijkstra::shortest_path(vector<node> graph, node* v){
                 dist[p] = alternate_path;
                 prev[p] = u;
             }
-             pq.decrease_priority(p,alternate_path);
+             pq.change_priority(p,alternate_path);
             }
         }
     }
-
 }
 
 #endif //DIJKSTRASALGORITHM_DIJKSTRA_H

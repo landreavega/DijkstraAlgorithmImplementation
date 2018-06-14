@@ -11,6 +11,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include "operations.h"
+#include "dijkstra.h"
 
 namespace Ui
 {
@@ -26,6 +27,7 @@ class MainWindow : public QMainWindow
 
     public slots:
         void updateLatLong(const QString &latLng);
+        void setUp();
 
     signals:
         void drawMap();
@@ -36,6 +38,8 @@ class MainWindow : public QMainWindow
         QWebEnginePage *page;
         QWebChannel *channel;
         QString httpString;
+//        dijkstra *dij;
+        Graph *graph;
         Operations *obj;
 
         void setupWebEngine();

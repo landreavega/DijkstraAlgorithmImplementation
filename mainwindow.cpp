@@ -6,8 +6,6 @@ MainWindow::MainWindow(QWidget *parent)
       ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QList<QMap<QString,QString>> output = obj->read_airports();
-
     this->setWindowTitle("Airport: Path Finder");
     setupWebEngine();
     setupSignalsAndSlots();
@@ -22,7 +20,14 @@ MainWindow::~MainWindow()
     //delete page;
 }
 
-
+void MainWindow::setUp(){
+    graph = new Graph();
+    node* n = new node();
+    n->latitude = -6.081689;
+    n->longitude = 145.391881;
+//    dij = new dijkstra();
+//    dij->shortest_path(graph,n);
+}
 
 void MainWindow::setupSignalsAndSlots()
 {

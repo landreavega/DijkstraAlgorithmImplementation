@@ -57,7 +57,7 @@ QMap<QString, QString> Operations::parseXML(QXmlStreamReader &reader){
 QList <QMap <QString,QString> > Operations::read_airports(){
     //list should be of form iata, lat, long, iata, lat, long, etc...
 
-    QFile in("airports.xml");
+    QFile in(":/airports.xml");
     if(!in.open(QFile::ReadOnly | QFile::Text))
     {
        qDebug() << "Cannot read file" << in.errorString();
@@ -105,7 +105,7 @@ QList <QMap <QString,QString> > Operations::read_airports(){
 QList <QMap <QString,QString> > Operations::read_routes(){
     //list should be of form source, destination, source, destination, etc...
 
-    QFile in("routes.xml");
+    QFile in(":/routes.xml");
     if(!in.open(QFile::ReadOnly | QFile::Text))
     {
        qDebug() << "Cannot read file" << in.errorString();

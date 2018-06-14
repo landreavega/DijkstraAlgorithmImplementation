@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>airports.xml</file>
+        <file>routes.xml</file>
+    </qresource>
+</RCC>

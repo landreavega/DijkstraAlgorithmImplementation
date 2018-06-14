@@ -12,23 +12,6 @@ enum QUEUE_ERRORS{PQ_BADSIZE, PQ_EMPTY, PQ_FULL, PQ_BADPRIORITY};
 
 using namespace std;
 
-struct PQ_node
-{
-    void *data, *priority;
-
-
-    PQ_node(){
-        data = nullptr;
-        priority = nullptr;
-    }
-    PQ_node(void *d, void *p){
-        data = d;
-        priority = p;
-    }
-
-};
-
-
 template<typename Data, typename Priority = int>
 class PQArray {
 
@@ -40,7 +23,7 @@ public:
     bool full();
     Data peek();
     PQArray<Data,Priority>(PQArray<Data,Priority> &other);
-    void change_priority(PQ_node* temp, Priority new_p);
+    void change_priority(node* temp, Priority new_p);
     PQArray<Data,Priority>& operator=(PQArray<Data,Priority> &other);
     void clear();
     void copy(PQArray<Data,Priority> &other);
@@ -52,15 +35,15 @@ public:
 
 
 private:
-    PQ_node prqueue;
-    void addToEnd(PQ_node *who);
-    void addToFront(PQ_node *who);
+    node prqueue;
+    void addToEnd(node *who);
+    void addToFront(node *who);
     int mySize, head, tail, head_priority, tail_priority, myCapacity;
     int currentindex;
     void nukem();
-    bool isGreater(PQ_node *p1,Priority p2);
-    bool isLessOrEqual(PQ_node *p1, Priority p2);
-    PQ_node* array[65];
+    bool isGreater(node *p1,Priority p2);
+    bool isLessOrEqual(node *p1, Priority p2);
+    node* array[65];
 
 
 };
@@ -115,7 +98,7 @@ void PQArray<Data,Priority>::copy(PQArray<Data,Priority> &other){
         return;
     mySize = other.mySize;
     myCapacity = other.myCapacity;
-    PQ_node *node;
+    node *node;
     node = other.array[head];
     tail_priority = *(Priority*)node->priority;
     head_priority =  *(Priority*)node->priority;
@@ -142,7 +125,7 @@ PQArray<Data,Priority>& PQArray<Data,Priority>::operator=(PQArray<Data,Priority>
 template<typename Data, typename Priority>
 void PQArray<Data,Priority>::enqueue(Data d, Priority p) {
 
-    PQ_node *newNode = new PQ_node;
+    node *newNode = new node;
     currentindex += 1;
     newNode->data = new Data(d);
     newNode->priority = new Priority(p);
@@ -163,7 +146,7 @@ void PQArray<Data,Priority>::enqueue(Data d, Priority p) {
 
 
 template<typename Data, typename Priority >
-void PQArray<Data,Priority>::addToEnd(PQ_node *who){
+void PQArray<Data,Priority>::addToEnd(node *who){
     // Increase tail index by one
 
     if (empty()){
@@ -186,18 +169,18 @@ void PQArray<Data,Priority>::addToEnd(PQ_node *who){
 }
 
 template<typename Data, typename Priority >
-bool PQArray<Data,Priority>::isGreater(PQ_node *p1, Priority p2)
+bool PQArray<Data,Priority>::isGreater(node *p1, Priority p2)
 {
     return *(Priority*)p1->priority > p2;
 }
 template<typename Data, typename Priority >
-bool PQArray<Data,Priority>::isLessOrEqual(PQ_node *p1, Priority p2)
+bool PQArray<Data,Priority>::isLessOrEqual(node *p1, Priority p2)
 {
 
     return *(Priority*)p1->priority <= p2;
 }
 template<typename Data, typename Priority>
-void PQArray<Data,Priority>::addToFront(PQ_node *n)
+void PQArray<Data,Priority>::addToFront(node *n)
 {
     // Increase size and therefore index of array
     if (!full()){
@@ -233,7 +216,7 @@ template<typename Data, typename Priority>
 Data PQArray<Data,Priority>::dequeue(){
 
     Data data;
-    PQ_node* bye;
+    node* bye;
 
     try
     {
@@ -283,7 +266,7 @@ Data PQArray<Data,Priority>::dequeue(){
 
 }
 template<typename Data, typename Priority>
-void PQArray<Data,Priority>::change_priority(PQ_node* temp, Priority new_p){
+void PQArray<Data,Priority>::change_priority(node* temp, Priority new_p){
     temp->priority = new_p;
 }
 

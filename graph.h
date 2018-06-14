@@ -3,8 +3,6 @@
 #include <vector>
 #include "node.h"
 #include "operations.h"
-#include <QMap>
-#include <QString>
 
 class Graph{
 public:

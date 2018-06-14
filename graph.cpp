@@ -8,14 +8,14 @@ Graph::Graph(){
     QString air_name, lat, lon;
     Operations temp;
     QList<QMap<QString, QString>> all_airports = temp.read_airports();
-    for(unsigned int i = 1; i <= all_airports.size(); ++i){
-        if(all_airports[i].find("iata")){
+    for(unsigned int i = 1; i < all_airports.size(); ++i){
+        if(all_airports[i].find("iata") != all_airports[i].end()){
             air_name = all_airports[i].value("iata");
         }
-        else if(all_airports[i].find("latitude")){
+        else if(all_airports[i].find("latitude") != all_airports[i].end()){
             lat = all_airports[i].value("latitude");
         }
-        else if(all_airports[i].find("longitude")){
+        else if(all_airports[i].find("longitude") != all_airports[i].end()){
             lon = all_airports[i].value("longitude");
         }
 
@@ -33,14 +33,15 @@ Graph::Graph(){
         //list should be of form source, destination, source, destination, etc...
 
     QString temp_source, temp_dest;
-    node* source, dest;
+    node* source = new node();
+    node* dest = new node();
     QList<QMap<QString, QString>> all_routes = temp.read_routes();
-    for(unsigned int j = 1; j <= all_routes.size(); ++j){
-        if(all_routes[i].find("SourceAirport")){
-            temp_source = all_routes[i].value("SourceAirport");
+    for(unsigned int j = 1; j < all_routes.size(); ++j){
+        if(all_routes[j].find("SourceAirport") != all_routes[j].end()){
+            temp_source = all_routes[j].value("SourceAirport");
         }
-        else if(all_routes[i].find("DestinationAirport")){
-            temp_dest = all_routes[i].value("DestinationAirport");
+        else if(all_routes[j].find("DestinationAirport") != all_routes[j].end()){
+            temp_dest = all_routes[j].value("DestinationAirport");
         }
         if(!(j % 2)){
             //find relevant node in graph and use add_neigh()
